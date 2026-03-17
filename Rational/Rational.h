@@ -49,5 +49,3 @@ public:
 };
 
 void test();
-
-void quadr_equat(Rational a, Rational b, Rational c);
