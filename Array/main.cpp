@@ -24,10 +24,6 @@ int main()
 	for (int i = 6; i >= 0; i -= 3)
 		arr.remove(i);
 	cout << arr << endl;*/
-	
-	/*Array xxl;
-	ArrayFilling(xxl, 4);
-	cout << xxl << endl;*/
 
 	cout << JosephFlavelsTask(100, 2) << endl;
 
