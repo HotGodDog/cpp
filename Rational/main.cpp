@@ -4,39 +4,31 @@
 
 using namespace std;
 
-int sqrt(Rational a);
+Rational sqrtNewton(Rational R);
 void quadr_equat(Rational a, Rational b, Rational c);
 
 int main()
 {
     setlocale(LC_ALL, "RU");
 
-    Rational a = 1, b = -1, c = -12;
+    //Rational a = 1, b = -1, c = -12;
 
-    //cout << "Решение квадратного уравнения ax^2 + bx + c = 0" << endl;
-    //cout << "Введите коэффициенты a, b, c: ";
-    //cin >> a >> b >> c;
+    //quadr_equat(a, b, c);
 
-    //test();
-
-    quadr_equat(a, b, c);
-
-    //cout << 2 / Rational (1, 2) << endl;
+    cout << sqrtNewton(Rational(1, 4));
 
     return 0;
 }
 
-int sqrt(Rational a)
+Rational sqrtNewton(Rational R)
 {
-    Rational x = a;
-    int counter = 0;
-    cout << "x" << counter << " = " << x << endl;
-    while (x.num < INT_MAX / x.den) {
-        x = (x + (a / x)) / 2;
-        counter++;
-        cout << "x" << counter << " = " << x << endl;
-        if (x == a)
-            break;
+    if (R == 0)
+        return R;
+
+    Rational x = R;
+    while (x.num < INT_MAX / x.den)
+    {
+        x = (x + (R / x)) / 2;
     }
     return x;
 }
@@ -49,7 +41,7 @@ void quadr_equat(Rational a, Rational b, Rational c)
 
     cout << "Дискриминант: " << d << endl;
 
-    Rational d_sqrt = sqrt(d);
+    Rational d_sqrt = sqrtNewton(d);
 
     cout << "Корень: " << d_sqrt << endl;
 
