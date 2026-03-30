@@ -1,31 +1,42 @@
 #include "Array.h"
 #include <iostream>
+#include <ctime>
+#include <fstream>
 
 using namespace std;
 
 void arrayFilling(Array& arr, int size);
+
 int JosephFlavelsTask(int size, int k);
 
 int main()
 {
 	setlocale(LC_ALL, "RU");
 
-	/*Array arr(4);
-	cout << arr << endl;
-	for (int i = 0; i < 4; i++)
-		arr.insert(i + 1);
-	cout << arr << endl;
-	for (int i = 0; i < 8; i += 2)
-		arr.insert(10 + i, i);
-	cout << arr << endl;
-	for (int i = 1; i < 8; i += 2)
-		arr[i] = 20 + i;
-	cout << arr << endl;
-	for (int i = 6; i >= 0; i -= 3)
-		arr.remove(i);
-	cout << arr << endl;*/
+	ofstream file("data.csv");
 
-	cout << JosephFlavelsTask(100, 2) << endl;
+	if (!file.is_open())
+	{
+		cerr << "Ошибка открытия файла" << endl;
+		return 1;
+	}
+
+	file << "N;Ответ;Время расчета (сек.)\n";
+
+	int N[7] = {1000, 5000, 10000, 50000, 100000, 500000, 1000000};
+
+	for (int i = 0; i < 7; i++)
+	{
+		clock_t start = clock();
+		file << N[i] << ";" << JosephFlavelsTask(N[i], 2);
+		clock_t end = clock();
+		file << ";" << double(end - start) / CLOCKS_PER_SEC << "\n";
+		cout << i + 1 << " запись сделана\n";
+	}
+	
+	file.close();
+	
+	cout << "Данные успешно записаны в файл" << endl;
 
 	return 0;
 }
