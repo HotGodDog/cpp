@@ -136,3 +136,37 @@ ostream& operator << (ostream& out, const Rational& r) {
 	out << r.num << "/" << r.den;
 	return out;
 }
+
+
+Rational roundRational(const Rational& r, int value)
+{
+	int num = (r.num) * value;
+	int den = r.den;
+
+	int roundedNum;
+	if (num >= 0)
+		roundedNum = (num + den / 2) / den;
+	else 
+		roundedNum = (num - den / 2) / den;
+
+	return Rational(roundedNum, value);
+}
+Rational sqrtRational(const Rational& r)
+{
+	if (r.num < 0)
+		return Rational(-1, 1);
+	if (r == 0)
+		return r;
+
+	Rational x = r;
+	for (int i = 0; i < 100; i++)
+	{
+		x = (x + (r / x)) / 2;
+		Rational next = roundRational(x);
+
+		if (next == x)
+			break;
+		x = next;
+	}
+	return x += 0;
+}
