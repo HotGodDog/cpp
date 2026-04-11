@@ -21,6 +21,7 @@ public:
 template <class T> class LineList
 {
 	LineListElem<T>* start;
+	LineListElem<T>* last;
 	LineList(const LineList& list);
 	LineList& operator = (const LineList& list);
 
@@ -72,6 +73,7 @@ template <class T> LineListElem<T>* LineListElem<T>::getNext()
 template <class T> LineList<T>::LineList()
 {
 	start = 0;
+	last = 0;
 }
 template <class T> LineList<T>::~LineList()
 {
@@ -85,33 +87,52 @@ template <class T> LineListElem<T>* LineList<T>::getStart()
 }
 template <class T> LineListElem<T>* LineList<T>::getLast()
 {
-	if (!start)
-		return start;
-
-	LineListElem<T>* ptr = start;
-	while (ptr->next != start)
-		ptr = ptr->next;
-
-	return ptr;
+	return last;
 }
 
+template <class T> void LineList<T>::insertFirst(const T& data)
+{
+	if (!start)
+	{
+		start = new LineListElem<T>(data, 0);
+		start->next = start;
+		last = start;
+	}
+	else
+	{
+		LineListElem<T>* newFirst = new LineListElem<T>(data, start);
+		last->next = newFirst;
+		start = newFirst;
+	}
+
+}
+template <class T> void LineList<T>::insertAfter(LineListElem<T>* ptr, const T& data)
+{
+	if (!ptr)
+		return;
+
+	LineListElem<T>* newNode = new LineListElem<T>(data, ptr->next);
+	ptr->next = newNode;
+
+	if (ptr == last)
+		last = newNode;
+}
 template <class T> void LineList<T>::deleteFirst()
 {
 	if (!start)
 		throw LineListException();
 
-	if (start->next == start)
+	if (start == last) 
 	{
 		delete start;
-		start = 0;
+		start = last = nullptr;
 	}
 	else
 	{
-		LineListElem<T>* last = getLast();
-		LineListElem<T>* first = start->next;
-		last->next = first;
+		LineListElem<T>* newStart = start->next;
+		last->next = newStart;
 		delete start;
-		start = first;
+		start = newStart;
 	}
 }
 template <class T> void LineList<T>::deleteAfter(LineListElem<T>* ptr)
@@ -119,44 +140,19 @@ template <class T> void LineList<T>::deleteAfter(LineListElem<T>* ptr)
 	if (!ptr || ptr->next == ptr)
 		throw LineListException();
 
-	if (ptr->next == start)
+	LineListElem<T>* toDelete = ptr->next;
+	if (toDelete == start)
 	{
-		LineListElem<T>* last = getLast();
-		LineListElem<T>* temp = start->next;
-		last->next = temp;
-		delete start;
-		start = temp;
+		start = start->next;
+		last->next = start;
 		ptr->next = start;
 	}
 	else
 	{
-		LineListElem<T>* temp = ptr->next;
-		ptr->next = temp->next;
-		delete temp;
+		ptr->next = toDelete->next;
+		if (toDelete == last)
+			last = ptr;
 	}
-}
-template <class T> void LineList<T>::insertFirst(const T& data)
-{
-	if (!start)
-	{
-		start = new LineListElem<T>(data, 0);
-		start->next = start;
-	}
-	else
-	{
-		LineListElem<T>* last = getLast();
-		LineListElem<T>* first = new LineListElem<T>(data, start);
-		last->next = first;
-		start = first;
-	}
-
-}
-template <class T> void LineList<T>::insertAfter(LineListElem<T>* ptr, const T& data)
-{
-	if (ptr)
-	{
-		LineListElem<T>* temp = new LineListElem<T>(data, ptr->next);
-		ptr->next = temp;
-	}
+	delete toDelete;
 }
 
