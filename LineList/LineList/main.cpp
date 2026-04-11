@@ -43,14 +43,14 @@ int main()
 
 void listFilling(LineList<int>& list, int size)
 {
-	LineListElem<int>* ptr = list.getStart();
-
 	list.insertFirst(1);
+
+	LineListElem<int>* ptr = list.getLast();
 
 	for (int i = 1; i <= size; i++)
 	{
 		list.insertAfter(ptr, i);
-		ptr = list.getLast();
+		ptr = ptr->getNext();
 	}
 }
 
@@ -62,7 +62,7 @@ int JosephFlavelsTask(int size, int k)
 
 	LineListElem<int>* ptr = list.getStart();
 
-	while (list.getStart() != list.getLast())
+	while (ptr != ptr->getNext())
 	{
 		for (int i = 2; i < k; i++)
 			ptr = ptr->getNext();
