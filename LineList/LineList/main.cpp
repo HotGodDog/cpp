@@ -13,7 +13,7 @@ int main()
 {
 	setlocale(LC_ALL, "RU");
 
-	/*ofstream file("data.csv");
+	ofstream file("data.csv");
 
 	if (!file.is_open())
 	{
@@ -28,17 +28,15 @@ int main()
 	for (int i = 0; i < 7; i++)
 	{
 		clock_t start = clock();
-		file << N[i] << ";" << JosephFlavelsTask(N[i], 2);
+		file << N[i] << "," << JosephFlavelsTask(N[i], 2);
 		clock_t end = clock();
-		file << ";" << double(end - start) / CLOCKS_PER_SEC << "\n";
+		file << "," << double(end - start) / CLOCKS_PER_SEC << "\n";
 		cout << i + 1 << " запись сделана\n";
 	}
 
 	file.close();
 
-	cout << "Данные успешно записаны в файл" << endl;*/
-
-	cout << JosephFlavelsTask(13, 3);
+	cout << "Данные успешно записаны в файл" << endl;
 
 	return 0;
 }
