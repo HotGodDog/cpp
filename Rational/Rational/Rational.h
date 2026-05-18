@@ -48,7 +48,7 @@ public:
 	friend ostream& operator << (ostream& out, const Rational& r);
 };
 
-Rational roundRational(const Rational& r, int value = 100);
+Rational roundRational(const Rational& r, int value = 10000);
 Rational sqrtRational(const Rational& r);
 
 void test();

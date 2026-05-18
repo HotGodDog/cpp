@@ -28,7 +28,7 @@ int main()
     //дробные коэффициенты и иррациональные корни
     //Rational a(1, 2), b(1, 3), c(-1, 4);
 
-    Rational a(2, 1), b(-3, 1), c(-2, 1);
+    Rational a(1, 1), b(-3532, 13923), c(209, 13923);
 
     quadr_equat(a, b, c);
 
@@ -40,7 +40,7 @@ void quadr_equat(Rational a, Rational b, Rational c)
 {
     cout << "\nУравнение: (" << a << ")x^2 + (" << b << ")x + " << c << " = 0" << endl;
 
-    Rational d = (b * b) + -4 * a * c;
+    Rational d = (b * b) + -(4 * a * c);
     Rational d_sqrt = sqrtRational(d);
 
     cout << "Дискриминант: " << d << endl;
