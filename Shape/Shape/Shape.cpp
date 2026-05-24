@@ -89,7 +89,7 @@ string Ellipse::name() const
 }
 
 
-// Реализация класса Triangle (Треугольник)
+// Реализация класса Triangle
 
 Triangle::Triangle(const Point& p1, const Point& p2, const Point& p3) : a(p1), b(p2), c(p3) {}
 
@@ -200,7 +200,7 @@ string Rectangle::name() const
 }
 
 
-// Реализация класса Polygon (Многоугольник)
+// Реализация класса Polygon
 
 Polygon::Polygon(const vector <Point>& vertices) : vertices(vertices) {}
 

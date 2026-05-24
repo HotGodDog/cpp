@@ -112,7 +112,7 @@ public:
 };
 
 
-// Класс Rectangle (Прямоугольник)
+// Класс Rectangle
 
 class Rectangle : public Figure
 {
